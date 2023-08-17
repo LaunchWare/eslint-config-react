@@ -1,7 +1,7 @@
 {
   "name": "@launchware/eslint-config-react",
   "scope": "@launchware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ESLint configuration for LaunchWare react projects",
   "main": "index.cjs",
   "repository": "https://github.com/LaunchWare/eslint-config-react",
