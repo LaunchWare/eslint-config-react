@@ -25,8 +25,8 @@ export default [
       createCommonJsPackage(),
     ],
     output: [
-      { format: "es", file: "./dist/esm/eslint-config-react.js" },
-      { format: "cjs", file: "./dist/cjs/eslint-config-react.js" },
+      { sourcemap: true, format: "es", file: "./dist/esm/eslint-config-react.js" },
+      { sourcemap: true, format: "cjs", file: "./dist/cjs/eslint-config-react.js" },
     ],
   },
 ]

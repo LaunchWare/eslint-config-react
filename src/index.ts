@@ -1,10 +1,12 @@
 import eslint from "@eslint/js"
 import tsEslint from "typescript-eslint"
 import airBnb from "eslint-config-airbnb"
-import importPlugin from "eslint-plugin-import"
+import { flatConfigs as importConfigs } from "eslint-plugin-import"
 import { FlatCompat } from "@eslint/eslintrc"
 import reactPlugin from "eslint-plugin-react"
 import reactRefresh from "eslint-plugin-react-refresh"
+import a11yPlugin from "eslint-plugin-jsx-a11y"
+
 import globals from "globals"
 
 const compat = new FlatCompat({
@@ -14,9 +16,22 @@ const compat = new FlatCompat({
 const flatConfig = tsEslint.config(
   eslint.configs.recommended,
   ...tsEslint.configs.strictTypeChecked,
-  ...compat.extends(airBnb),
   {
-    // in main config for TSX/JSX source files
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+  },
+  //...compat.extends(airBnb),
+  {
+    name: "@launchware/eslint-config-react/jsx-ally",
+    plugins: {
+      "jsx-a11y": a11yPlugin,
+    },
+  },
+  {
+    name: "@launchare/eslint-config-react/react-refresh",
     plugins: {
       "react-refresh": reactRefresh,
     },
@@ -24,12 +39,21 @@ const flatConfig = tsEslint.config(
       "react-refresh/only-export-components": "warn",
     },
   },
-  importPlugin.flatConfigs.recommended,
+  importConfigs.recommended,
   {
+    name: "@launchware/eslint-config-react/react",
     files: ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
     plugins: { react: reactPlugin },
-  },
-  {
+    rules: {
+      "react/prop-types": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react/jsx-filename-extension": [
+        "error",
+        {
+          extensions: ["jsx", "tsx"],
+        },
+      ],
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -42,19 +66,12 @@ const flatConfig = tsEslint.config(
     },
   },
   {
+    name: "@launchware/eslint-config-react/rules",
     rules: {
       "no-use-before-define": "off",
-      "react/jsx-filename-extension": [
-        "error",
-        {
-          extensions: ["jsx", "tsx"],
-        },
-      ],
       "no-underscore-dangle": "off",
       "import/no-cycle": "off",
-      "react/prop-types": "off",
       "no-shadow": "off",
-      "react/jsx-props-no-spreading": "off",
       "import/no-named-as-default-member": "off",
       "import/no-named-as-default": "off",
       "import/prefer-default-export": "off",
@@ -84,6 +101,14 @@ const flatConfig = tsEslint.config(
   },
 )
 
-export default {
-  recommended: flatConfig,
+const config = {
+  meta: {
+    name: "@launchware/eslint-config-react",
+    version: "0.1.0",
+  },
+  configs: {
+    recommended: flatConfig,
+  },
 }
+
+export default config
