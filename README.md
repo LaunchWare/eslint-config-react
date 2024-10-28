@@ -10,10 +10,19 @@ yarn add -D @launchware/eslint-config-react
 
 ## Usage
 
-You need to add the following to your `.eslintrc` (or equivalent) file:
+You need to add the following to your `eslint.config.js` (or equivalent) file:
 
-```json
-{
-  "extends": "@launchware/eslint-config-react"
-}
+```javascript
+const launchEslint = require("@launchware/eslint-config-node")
+
+module.exports = [
+  // ... existing ESLint configs
+  ...launchEslint.default.configs.recommended,
+  {
+    settings: {
+      "files": ["**/*.{ts}"],
+      "import/resolver": { typescript: { project: "./tsconfig.test.json" } },
+    },
+  },
+]
 ```
