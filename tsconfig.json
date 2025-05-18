@@ -6,7 +6,6 @@
     "baseUrl": ".",
     "allowJs": true,
     "sourceMap": true,
-    "declaration": false,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -21,6 +20,7 @@
     "strict": true,
     "resolveJsonModule": true
   },
+  "include": ["src"],
   "exclude": ["node_modules", "dist", "rollup.config.mjs"],
   "ts-node": {
     "esm": true

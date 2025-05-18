@@ -1,14 +1,12 @@
 import eslint from "@eslint/js"
 import tsEslint from "typescript-eslint"
-import { flatConfigs as importConfigs } from "eslint-plugin-import"
 import { FlatCompat } from "@eslint/eslintrc"
 import reactPlugin from "eslint-plugin-react"
 import a11yPlugin from "eslint-plugin-jsx-a11y"
 import globals from "globals"
-import pkg from "../package.json"
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: import.meta.dirname,
 })
 
 const flatConfig = tsEslint.config(
@@ -23,8 +21,6 @@ const flatConfig = tsEslint.config(
   },
 
   ...compat.extends("eslint-config-airbnb"),
-
-  importConfigs.recommended,
 
   {
     name: "@launchware/eslint-config-react/react",
@@ -44,32 +40,22 @@ const flatConfig = tsEslint.config(
       "no-shadow": "off",
       "no-use-before-define": "off",
       "no-underscore-dangle": "off",
+      semi: "off",
 
       // TypeScript-specific
       "@typescript-eslint/no-unused-vars": ["error"],
 
       // React-specific
       "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
       "react/jsx-props-no-spreading": "off",
-
-      // React Refresh
-      "react-refresh/only-export-components": "warn",
 
       // A11y
       // (optional additions depending on your team’s commitment to accessibility)
 
       // Import rules
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          js: "never",
-          jsx: "never",
-          ts: "never",
-          tsx: "never",
-        },
-      ],
+      "import/extensions": ["off"],
       "import/order": [
         "error",
         {
@@ -100,7 +86,7 @@ const flatConfig = tsEslint.config(
 export default {
   meta: {
     name: "@launchware/eslint-config-react",
-    version: pkg.version,
+    version: "0.1.3",
   },
   configs: {
     recommended: flatConfig,
