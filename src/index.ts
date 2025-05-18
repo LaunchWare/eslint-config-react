@@ -5,6 +5,7 @@ import { FlatCompat } from "@eslint/eslintrc"
 import reactPlugin from "eslint-plugin-react"
 import a11yPlugin from "eslint-plugin-jsx-a11y"
 import globals from "globals"
+import pkg from "../package.json"
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -99,7 +100,7 @@ const flatConfig = tsEslint.config(
 export default {
   meta: {
     name: "@launchware/eslint-config-react",
-    version: "0.1.1",
+    version: pkg.version,
   },
   configs: {
     recommended: flatConfig,
